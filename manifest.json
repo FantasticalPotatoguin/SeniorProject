@@ -1,14 +1,25 @@
 {
     "manifest_version": 3,
-    "name": "Hello Extensions",
-    "description": "Base Level Extension",
+    "name": "Save",
+    "description": "Save stuff",
     "version": "1.0", 
     "permissions": [
+        "tabs", 
+        "contextMenus", 
+        "notifications", 
         "tabs"
     ],
+    "icons": {
+        "16": "save-16.png",
+        "48": "save-48.png",
+        "128": "save-128.png"
+    },
     "action": {
         "default_popup": "popup.html",
-        "default_icon": "hello_extensions.png"
+        "default_icon": "save-48.png"
+    }, 
+    "background": {
+        "service_worker": "background.js"
     }
    
 
