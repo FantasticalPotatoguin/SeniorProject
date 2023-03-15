@@ -1,29 +1,32 @@
 
-function isImgUrl(url) {
-    // function obtained from https://bobbyhadz.com/blog/javascript-check-if-url-is-image
-    //extra image filetypes from https://www.techonthenet.com/html/elements/img_tag.php
-   return /\.(jpg|jpeg|png|webp|avif|gif|svg|bmp|apng)$/.test(url);
-    }
-
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs)
 {
-    var testUrl = "https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png"
-if (isImgUrl(testUrl)){
     const queryString = window.location.search;
-document.getElementById("link").innerHTML = queryString//testUrl
-
-}
+    const urlParams = new URLSearchParams(queryString);
+    if (urlParams.has('image'))
+        {
+         document.getElementById("imageContainer").src = urlParams.get('image');
+        }
 else{
-    document.getElementById("link").innerHTML = "error";
+        document.getElementById("link").innerHTML = "error";
+    }
 }
-})
+);
 
 
 
 
 
 
-/* if (has parameters: image)
+/* 
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+ if (urlParams.has('image'))
+ {
+     document.getElementById("imageContainer").src = urlParams.get('image');
+ }
+
+if (has parameters: image)
     image stuff
 
 if (has parameters: text) 

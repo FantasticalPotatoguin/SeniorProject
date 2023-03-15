@@ -13,7 +13,7 @@ chrome.contextMenus.onClicked.addListener(function(clickData){
     if(clickData.menuItemId == "organize"){
         var urlParams = "";
         if (clickData.mediaType == "image"){
-            urlParams = "?image=true";
+            urlParams = "?image=" + clickData.srcUrl;
         }
         else
         {
