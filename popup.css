@@ -29,3 +29,6 @@ p {
 body::-webkit-scrollbar{
     display: none;
 }
+#link {
+    font-weight: bold;
+}

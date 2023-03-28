@@ -11,8 +11,26 @@
         <script src="./popup.js" type="module"></script>
 
         <h1> Save item</h1>
-        <img id = "imageContainer"/>
+        <hr>
+        <br>
         <p id="link"></p>
+        <img id = "imageContainer"/>
+        <hr>
+        <br>
+        <label for="content" id="contentLabel">Nickname (optional): </label>
+        <input type = "text" id = "content" name = "content" value = "">
+        <br>
+        <select name = "stars" id = "stars">
+            <option value="0">unsorted</option>
+            <option value="1">★</option>
+            <option value="2">★★</option>
+            <option value="3">★★★</option>
+            <option value="4">★★★★</option>
+            <option value="5">★★★★★</option>
+        </select>
+        <br>
+        <br>
+        <input type = "submit" name = "save" value = "Save">
     </body>
 
 

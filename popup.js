@@ -7,29 +7,15 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs)
         {
          document.getElementById("imageContainer").src = urlParams.get('image');
         }
-else{
-        document.getElementById("link").innerHTML = "error";
+    else if (urlParams.has('text'))
+    {
+        document.getElementById("link").innerHTML = urlParams.get('text');
+        
+    }
+    else 
+    {
+        var tab = tabs[0];
+        document.getElementById("link").innerHTML = tab.url;
     }
 }
 );
-
-
-
-
-
-
-/* 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
- if (urlParams.has('image'))
- {
-     document.getElementById("imageContainer").src = urlParams.get('image');
- }
-
-if (has parameters: image)
-    image stuff
-
-if (has parameters: text) 
-    text stuff
-if (has no parameters)
-    Page */
