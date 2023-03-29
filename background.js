@@ -1,4 +1,7 @@
 
+let db;
+
+
 function dbName(){
     return "contentStorage";
 }
@@ -8,9 +11,9 @@ function dbVersion(){
 
 
 chrome.runtime.onInstalled.addListener( () => {
-//When extension is first installed
+//Create context menu items for navigation and initialize database when extension is first installed
 chrome.contextMenus.create({
-//Create context menu items for navigation
+
     "id": "organize",
     "title": "Save",
     "contexts": ["selection", "link", "image"]
@@ -27,9 +30,9 @@ request.onupgradeneeded = function() {
     //if database is out of date or does not exist, create database. Above 'onsuccess' function will then fire.
     //Required callback function for using indexedDB
 
-    var db = request.result;
-    var store = db.createObjectStore("List1", {keyPath: "listID"});
-    var index = store.createIndex("NameIndex", ["name.last", "name.first"]);
+    db = request.result;
+    var store = db.createObjectStore("List1", {keyPath: "listID", autoIncrement: true});
+    //var index = store.createIndex("NameIndex", ["name.last", "name.first"]);
 
 }
 request.onsuccess = function(event) {
@@ -38,11 +41,13 @@ request.onsuccess = function(event) {
     db = this.result;
     var tx = db.transaction("List1", "readwrite");
     var store = tx.objectStore("List1");
-    var index = store.index("NameIndex");
 
-    store.put({listID: 12345, name: {first: "John", last: "Doe"}, age: 42});
-    store.put({listID: 67890, name: {first: "Bob", last: "Smith"}, age: 35});
+    store.put({ nickname: "bob", rank: 3, dateAdded: 4, content: "clubpenguin.com"});
+    store.put({ nickname: "cheese", rank: 2, dateAdded: 5, content: "potato.io"});
+    db.close();
 };
+
+
 
 
 });
