@@ -32,3 +32,6 @@ body::-webkit-scrollbar{
 #link {
     font-weight: bold;
 }
+.center {
+    text-align: center;
+}

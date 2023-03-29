@@ -21,18 +21,39 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs)
 );
 
 document.getElementById("save").addEventListener("click", function() {
-    let db; 
-    let request = indexedDB.open("contentStorage", 4);
+    var db; 
+    var request = indexedDB.open("contentStorage", 4);
     request.onsuccess = function(event) {
 
-        let nickname = document.getElementById("nickname").value;
-        let rating = document.getElementById("rating").value;
-        //format: nickname:, rank:, dateAdded:, content:
+        //Database transaction setup
         db = this.result;
         var tx = db.transaction("List1", "readwrite");
         var store = tx.objectStore("List1");
-        store.put({nickname: nickname, rank: rating, dateAdded: 1, content: "test"});
-        alert ("test" + nickname+rating);
+
+        //value setup
+        var type;
+        var content;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("text")) {
+            type = "text";
+            content = document.getElementById("link").innerHTML;
+        }
+        else if (urlParams.has("image")) {
+            type = "image";
+            content = document.getElementById("imageContainer").src;
+        }
+        else{
+            type = "link";
+            content = document.getElementById("link").innerHTML;
+        }
+
+        var nickname = document.getElementById("nickname").value;
+        var rating = document.getElementById("rating").value;
+
+        //send values to database
+        store.put({nickname: nickname, rank: rating, dateAdded: 1, content: content, type: type});
+        db.close();
     }
     request.onerror = function(event) {
         alert("Error saving database");
