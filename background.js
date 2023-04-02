@@ -19,9 +19,11 @@ chrome.contextMenus.create({
     "contexts": ["selection", "link", "image"]
 })
 
+//CREATE LISTNAMESARRAY
+chrome.storage.local.set({listNamesArray: ["List1", "list3", "list17"]});
 
+//CREATE FIRST LIST DATABASE
 
-const DB_STORE_NAME = "itemContents";
 let db;
 let request = indexedDB.open(dbName(), dbVersion());
 //attempt to open database for the first time
@@ -32,18 +34,18 @@ request.onupgradeneeded = function() {
 
     db = request.result;
     var store = db.createObjectStore("List1", {keyPath: "listID", autoIncrement: true});
-    //var index = store.createIndex("NameIndex", ["name.last", "name.first"]);
+    //default list name had to be hardcoded for some reason, I think due to background script authority differences
 
 }
 request.onsuccess = function(event) {
 //if read is successful
     console.log("IndexedDB opened successfully");
     db = this.result;
-    var tx = db.transaction("List1", "readwrite");
+    var tx = db.transaction(["List1"], "readwrite");
     var store = tx.objectStore("List1");
 
-    store.put({ nickname: "bob", rank: 3, dateAdded: 4, content: "clubpenguin.com"});
-    store.put({ nickname: "cheese", rank: 2, dateAdded: 5, content: "potato.io"});
+    store.put({ nickname: "Wikipedia", rank: 3, dateAdded: 4, content: "https://www.wikipedia.org/", type: "link"});
+    store.put({ nickname: "W3", rank: 5, dateAdded: 5, content: "https://www.w3schools.com/", type: "link"});
     db.close();
 };
 

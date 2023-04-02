@@ -1,4 +1,16 @@
 
+chrome.storage.local.get("listNamesArray", function (result) {
+    for(var i in result.listNamesArray)
+    {
+        var node = document.createElement("option");
+        var textNode = document.createTextNode(result.listNamesArray[i])
+        node.appendChild(textNode);
+        document.getElementById("lists").appendChild(node);
+    }
+})
+
+
+
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs)
 {
     const queryString = window.location.search;
@@ -19,6 +31,8 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs)
     }
 }
 );
+
+
 
 document.getElementById("save").addEventListener("click", function() {
     var db; 
@@ -54,8 +68,12 @@ document.getElementById("save").addEventListener("click", function() {
         //send values to database
         store.put({nickname: nickname, rank: rating, dateAdded: 1, content: content, type: type});
         db.close();
+
     }
     request.onerror = function(event) {
         alert("Error saving database");
-    }
+    }        
+    chrome.tabs.getCurrent(function(tab) {
+            chrome.tabs.remove(tab.id, function() {});
+        });
 })
