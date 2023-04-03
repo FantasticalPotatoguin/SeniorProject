@@ -40,9 +40,7 @@ document.getElementById("save").addEventListener("click", function() {
     request.onsuccess = function(event) {
 
         //Database transaction setup
-        db = this.result;
-        var tx = db.transaction("List1", "readwrite");
-        var store = tx.objectStore("List1");
+
 
         //value setup
         var type;
@@ -64,7 +62,11 @@ document.getElementById("save").addEventListener("click", function() {
 
         var nickname = document.getElementById("nickname").value;
         var rating = document.getElementById("rating").value;
+        var whichList = document.getElementById("lists").value;
 
+        db = this.result;
+        var tx = db.transaction(whichList, "readwrite");
+        var store = tx.objectStore(whichList);
         //send values to database
         store.put({nickname: nickname, rank: rating, dateAdded: 1, content: content, type: type});
         db.close();
@@ -73,7 +75,7 @@ document.getElementById("save").addEventListener("click", function() {
     request.onerror = function(event) {
         alert("Error saving database");
     }        
-    chrome.tabs.getCurrent(function(tab) {
+    /*chrome.tabs.getCurrent(function(tab) {
             chrome.tabs.remove(tab.id, function() {});
-        });
+        });*/
 })

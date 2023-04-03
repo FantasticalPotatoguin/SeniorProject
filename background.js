@@ -20,7 +20,7 @@ chrome.contextMenus.create({
 })
 
 //CREATE LISTNAMESARRAY
-chrome.storage.local.set({listNamesArray: ["List1", "list3", "list17"]});
+chrome.storage.local.set({listNamesArray: ["List1", "List2"]});
 
 //CREATE FIRST LIST DATABASE
 
@@ -34,7 +34,9 @@ request.onupgradeneeded = function() {
 
     db = request.result;
     var store = db.createObjectStore("List1", {keyPath: "listID", autoIncrement: true});
-    //default list name had to be hardcoded for some reason, I think due to background script authority differences
+    var store = db.createObjectStore("List2", {keyPath: "listID", autoIncrement: true});
+
+    //default list name had to be hardcoded for some reason
 
 }
 request.onsuccess = function(event) {
@@ -46,6 +48,12 @@ request.onsuccess = function(event) {
 
     store.put({ nickname: "Wikipedia", rank: 3, dateAdded: 4, content: "https://www.wikipedia.org/", type: "link"});
     store.put({ nickname: "W3", rank: 5, dateAdded: 5, content: "https://www.w3schools.com/", type: "link"});
+
+    var tx = db.transaction(["List2"], "readwrite");
+    var store = tx.objectStore("List2");
+    store.put({ nickname: "SECOND LIST", rank: 4, dateAdded: 7, content: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", type: "link"});
+    store.put({ nickname: "School", rank: 3, dateAdded: 8, content: "https://www.wilmu.edu/mywilmu/index.aspx", type: "link"})
+    
     db.close();
 };
 
