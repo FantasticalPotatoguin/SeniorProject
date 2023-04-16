@@ -38,11 +38,11 @@ h3 {
   background-color: #ffffff;
   padding: 50px 40px;
 }
-#tab-content h4 {
-  font-size: 28px;
+h4 {
+  font-size: 36px;
   margin-bottom: 20px;
   color: #000224;
-  font-weight: 600;
+  font-weight: bold;
 }
 #tab-content p {
   text-align: justify;
@@ -59,4 +59,14 @@ h3 {
 #tabs .active {
   background-color: #ffffff;
   color: #4d5bf9;
+}
+.stars {
+    font-family: "Twemoji Mozilla",
+                 "Apple Color Emoji",
+                 "Segoe UI Emoji",
+                 "Segoe UI Symbol",
+                 "Noto Color Emoji",
+                 "EmojiOne Color",
+                 "Android Emoji",
+                 sans-serif;
 }
