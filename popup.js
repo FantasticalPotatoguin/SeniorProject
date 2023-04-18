@@ -8,11 +8,14 @@ function dbVersion(){
     return 1;
 }
 function listName() {
+    //return object store name
     return "listStorage";
 }
 
 var request = indexedDB.open(dbName(), dbVersion());
+
 request.onsuccess = function() {
+    //read list names from database
     let db = this.result;
     let tx = db.transaction(listName(), "readonly");
     let store = tx.objectStore(listName());
@@ -22,6 +25,7 @@ request.onsuccess = function() {
         let cursor = event.target.result;
         if (cursor) 
         {
+            
             let node = document.createElement("option");
             var textNode = document.createTextNode(cursor.value.name)
             node.appendChild(textNode);

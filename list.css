@@ -70,3 +70,15 @@ h4 {
                  "Android Emoji",
                  sans-serif;
 }
+.container:nth-child(odd){
+background-color:rgba(228, 233, 253, 0.5)
+}
+li {
+  list-style: none;
+}
+button {
+   font-weight: bold;
+   padding: 1px;
+   margin: 10px;
+   color:rgba(80, 80, 80, 0.5)
+}

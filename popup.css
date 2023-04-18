@@ -33,3 +33,6 @@ body::-webkit-scrollbar{
 .center {
     text-align: center;
 }
+#nickname {
+    margin-bottom: 5%;
+}
