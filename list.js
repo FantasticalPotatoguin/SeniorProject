@@ -23,7 +23,27 @@ function ratingDisplay(stars) {
 
 function loadListContent() {
     var request = indexedDB.open("contentStorage", 1);
-    request.onsuccess = function() {
+    request.onsuccess = function(event) {
+
+        //if new value just got added
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if (urlParams.has('listName'))
+        {
+            params = urlParams.get('listName')
+            let db = event.target.result;
+            let tx = db.transaction(["listStorage"], "readwrite");
+            let store = tx.objectStore("listStorage");
+            store.put({name: params, content: [["https://www.wikipedia.org/", "link", "New List", 5, 5], ["https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png", "image", "Wikipedia", 5, 5]]})
+            //One-liner delete code taken directly from StackOverflow. 
+            //https://stackoverflow.com/questions/22753052/remove-url-parameters-without-refreshing-page
+            window.history.pushState("object or string", "Title", "/"+window.location.href.substring(window.location.href.lastIndexOf('/') + 1).split("?")[0]);
+            
+        }
+
+
+
+
         let db = this.result;
         let tx = db.transaction(["listStorage"], "readonly");
         let store = tx.objectStore("listStorage");
@@ -62,7 +82,7 @@ function loadListContent() {
                     outerDiv.appendChild(temp);//document.getElementById(itemName).appendChild(temp);
 
                     if(arrayHolder[i][2] != ""){
-                        //if nickname exists, load nickname
+                    //if nickname exists, load nickname
                     temp = document.createElement("h4");
                     temp.innerText = String(arrayHolder[i][2]);
                     outerDiv.appendChild(temp); //document.getElementById(itemName).appendChild(temp);
@@ -104,6 +124,8 @@ function loadListContent() {
                 
             cursor.advance(1);
             }
+
+
             var buttons = document.getElementsByTagName('button');
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].addEventListener("click", xButton);
@@ -125,6 +147,8 @@ function loadListContent() {
                 });
             })
         }
+
+        
     }
 }
 
@@ -139,7 +163,7 @@ function xButton(event) {
     }
     else if (buttonSiblingString == "img")
     {
-        siblingContent = buttonSiblinggetAttribute("src");
+        siblingContent = buttonSibling.getAttribute("src");
     }
     else if (buttonSiblingString == "p")
     {
@@ -154,7 +178,7 @@ function xButton(event) {
     var request = indexedDB.open("contentStorage", 1);
     request.onsuccess = function() {
         let db = this.result;
-        let tx = db.transaction(["listStorage"], "readonly");
+        let tx = db.transaction(["listStorage"], "readwrite");
         let store = tx.objectStore("listStorage");
         let req = store.openCursor();
         req.onsuccess = function (event) {
@@ -174,7 +198,11 @@ function xButton(event) {
                 {
                     if(siblingContent == tempContent[i][0])
                     {
-                        alert ("It's a beautiful baby boy"); 
+ 
+                        tempContent.splice(i, 1);
+                        tempObj.content = tempContent;
+                        cursor.update(tempObj);
+                        
                     }
                 }
 
@@ -191,8 +219,11 @@ function xButton(event) {
     event.currentTarget.parentNode.remove();
 }
 
+
+
+
 loadListContent();
 
 
-window.onload
+
 

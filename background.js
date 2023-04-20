@@ -29,7 +29,7 @@ let request = indexedDB.open(dbName(), 1);
 
 request.onupgradeneeded = function(event) {
     db = event.target.result;
-    let store = db.createObjectStore("listStorage", {keyPath: "listID", autoincrement: true});
+    let store = db.createObjectStore("listStorage", {keyPath: "listID", autoIncrement: true});
     
     store.put({listID: 1, name: "List1", content: [["https://www.wikipedia.org/", "link", "Wikipedia", 5, 5], ["https://www.w3schools.com/","link", "W3", 4, 4]]});
     store.put({listID: 2, name: "List2", content: [["https://www.wikipedia.org/", "link", "Wikipedia2", 5, 5], ["https://www.w3schools.com/","link", "W32", 4, 4]]})

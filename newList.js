@@ -1,0 +1,3 @@
+function newList() {
+    alert("hi");
+}
