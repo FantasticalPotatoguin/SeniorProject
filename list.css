@@ -80,7 +80,7 @@ button {
    font-weight: bold;
    padding: 1px;
    margin: 10px;
-   color:rgba(80, 80, 80, 0.5)
+   color:rgba(117, 115, 115, 0.623)
 }
 
 
@@ -95,7 +95,7 @@ button {
 	font-family: inherit;
 	font-size: inherit;
 	color: inherit;
-	background: #4d5bf9;
+	background: #9199f5;
 	cursor: pointer;
 	padding: 25px 80px;
 	display: inline-block;

@@ -35,7 +35,7 @@ function loadListContent() {
             let tx = db.transaction(["listStorage"], "readwrite");
             let store = tx.objectStore("listStorage");
             store.put({name: params, content: [["https://www.wikipedia.org/", "link", "New List", 5, 5], ["https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png", "image", "Wikipedia", 5, 5]]})
-            //One-liner delete code taken directly from StackOverflow. 
+            //One-liner code to delete url parameters taken directly from StackOverflow. 
             //https://stackoverflow.com/questions/22753052/remove-url-parameters-without-refreshing-page
             window.history.pushState("object or string", "Title", "/"+window.location.href.substring(window.location.href.lastIndexOf('/') + 1).split("?")[0]);
             
@@ -108,13 +108,16 @@ function loadListContent() {
                     }
                     else 
                     {                    
-                        temp = document.createElement("p").appendChild(document.createTextNode(arrayHolder[i][0]));
+                        temp = document.createElement("p");
+                        
+                        temp.innerText = arrayHolder[i][0];
                         outerDiv.appendChild(temp);//document.getElementById(itemName).appendChild(temp);//innerHTML = cursor.value.content[0][0];
                         //document.getElementById(itemName).appendChild(document.createElement("hr"));
                     }
 
                     temp = document.createElement("button");
                     temp.innerText = "X";
+                    temp.classList += "closeButton";
                     outerDiv.appendChild(temp);
                     
                     document.getElementById(itemName).appendChild(outerDiv);
@@ -218,6 +221,8 @@ function xButton(event) {
 
     event.currentTarget.parentNode.remove();
 }
+
+
 
 
 

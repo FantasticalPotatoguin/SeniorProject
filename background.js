@@ -50,9 +50,6 @@ request.onsuccess = function() {
 
 
 
-/*function initializeDb(name, version){
-
-};*/
 
 
 chrome.contextMenus.onClicked.addListener(function(clickData){
