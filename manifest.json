@@ -1,13 +1,11 @@
 {
     "manifest_version": 3,
-    "name": "Save",
-    "description": "Save stuff",
+    "name": "Bookmarks+",
+    "description": "Save and sort links, images, and text from across the web",
     "version": "1.0", 
     "permissions": [
         "tabs", 
-        "contextMenus", 
-        "notifications", 
-        "tabs", 
+        "contextMenus",  
         "storage"
     ],
     "icons": {
